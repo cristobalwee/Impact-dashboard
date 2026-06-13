@@ -1,0 +1,9 @@
+data/raw/
+posthog/
+node_modules/
+app/dist/
+app/node_modules/
+__pycache__/
+*.pyc
+.env
+.DS_Store

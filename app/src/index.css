@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/*
+  Design tokens as CSS variables (Phase 6 themeability requirement).
+  Light defaults; dark via prefers-color-scheme and a manual [data-theme]
+  override on <html>. UI work fills these in later — scaffold only for now.
+*/
+:root {
+  --bg: #ffffff;
+  --surface: #f6f7f9;
+  --text: #1a1a2e;
+  --muted: #5b6478;
+  --accent: #1d4ed8;
+  --ring: #2563eb;
+  --border: #e3e6ec;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --ring: #58a6ff;
+    --border: #2d333b;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0e1117;
+  --surface: #161b22;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --ring: #58a6ff;
+  --border: #2d333b;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Respect reduced-motion globally (a11y requirement). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Visible focus rings for keyboard nav. */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Two-column layout: leaderboard + sticky aside on wide screens, stacked below it on narrow. */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (min-width: 1000px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 312px;
+  }
+  .aside {
+    position: sticky;
+    top: 1rem;
+  }
+}
+
+.card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 12px;
+}
